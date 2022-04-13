@@ -1,0 +1,41 @@
+{
+  "countryCode": "Global",
+  "clientReference": "123456798",
+  "reportingReference": "DZ-f2fc19cc-414e-42da-8b94-538b062c8bda",
+  "matchStatus": "No Match",
+  "searchErrorMessage": "",
+  "safeHarbour": false,
+  "searchStatus": "Successful",
+  "serviceResponses": {
+    "Watchlist AML": {
+      "status": 0,
+      "sourceStatus": "Successful",
+      "errorMessage": "",
+      "identityVerified": true,
+      "safeHarbourScore": "none",
+      "nameMatchScore": "1.000",
+      "addressMatchScore": "N/A",
+      "verifications": {
+        "dateOfBirth": true,
+        "firstName": true,
+        "gender": true,
+        "lastName": true
+      },
+      "returnedData": {
+        "watchlistResults": [
+          {
+            "whitelist": false,
+            "additionalInfoURL": "https://idu.datazoo.com/api/v2/watchlist/PDF/5442770",
+            "category": "Adverse Media, ID/V",
+            "deathIndex": "NO",
+            "gender": "Male",
+            "otherNames": ["John Doe"],
+            "scanId": "I5442770",
+            "yearOfBirth": false
+          }
+        ]
+      }
+    }
+  },
+  "remarks": []
+}

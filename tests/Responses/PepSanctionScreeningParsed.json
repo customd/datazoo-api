@@ -1,0 +1,29 @@
+{
+  "status": 0,
+  "sourceStatus": "Successful",
+  "errorMessage": "",
+  "identityVerified": true,
+  "safeHarbourScore": "none",
+  "nameMatchScore": "1.000",
+  "addressMatchScore": "N/A",
+  "verifications": {
+    "dateOfBirth": true,
+    "firstName": true,
+    "gender": true,
+    "lastName": true
+  },
+  "returnedData": {
+    "watchListResults": [
+      {
+        "whitelist": false,
+        "additionalInfoURL": "https://idu.datazoo.com/api/v2/watchlist/PDF/5442770",
+        "category": "Adverse Media, ID/V",
+        "deathIndex": "NO",
+        "gender": "Male",
+        "otherNames": ["John Doe"],
+        "scanId": "I5442770",
+        "yearOfBirth": false
+      }
+    ]
+  }
+}

@@ -1,22 +1,34 @@
 {
-    "name": "elliotjreed/php-package-boilperplate",
-    "license": "MIT",
-    "type": "project",
-    "description": "Example PHP package.",
-    "autoload": {
-        "psr-4" : {
-            "Example\\" : "src/Example/"
-        }
-    },
-    "autoload-dev": {
-        "psr-4" : {
-            "Tests\\Example\\" : "tests/Example/"
-        }
-    },
-    "require": {
-        "php": "^7.4|^8.0"
-    },
-    "require-dev": {
-        "phpunit/phpunit": "^9.5"
+  "name": "custom-d/datazoo-api",
+  "license": "MIT",
+  "type": "project",
+  "description": "Datazoo api intergration",
+  "autoload": {
+    "psr-4": {
+      "CustomD\\Datazoo\\": "src/"
     }
+  },
+  "autoload-dev": {
+    "files": [
+      "src/helpers.php"
+    ],
+    "psr-4": {
+      "Tests\\Datazoo\\": "tests/"
+    }
+  },
+  "require": {
+    "php": "^7.1",
+    "illuminate/support": "^5.8",
+    "illuminate/validation": "^5.8",
+    "illuminate/translation": "^5.8"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^7.0",
+    "phpstan/phpstan": "^1.4",
+    "guzzlehttp/guzzle": "^6.5",
+    "symfony/var-dumper": "^4.4"
+  },
+  "scripts": {
+    "test": "phpunit"
+  }
 }
