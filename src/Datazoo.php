@@ -3,51 +3,33 @@
 namespace CustomD\Datazoo;
 
 use GuzzleHttp\Client;
+use GuzzleHttp\ClientInterface;
 use CustomD\Datazoo\Model\ModelAbstract;
 use Illuminate\Validation\ValidationException;
 
 class Datazoo
 {
-    /**
-     * @var string
-     */
-    protected $apiUrl = 'https://idu.datazoo.com/api/v2';
+    protected string $apiUrl = 'https://idu.datazoo.com/api/v2';
+
+    protected array $config;
+
+    protected ?string $sessionToken = null;
 
     /**
-     * @var array
+     * @var \GuzzleHttp\ClientInterface&\GuzzleHttp\ClientTrait
      */
-    protected $config;
+    protected ClientInterface $client;
 
-    /**
-     * @var ?string
-     */
-    protected $sessionToken = null;
-
-    /**
-     *
-     *
-     * @var \GuzzleHttp\ClientInterface
-     */
-    protected $client;
-
-    /**
-     * @param array $config
-     * @param \GuzzleHttp\ClientInterface $client
-     */
-    public function __construct($config, $client = null)
+    public function __construct(array $config, ?ClientInterface $client = null)
     {
         if ($config['debug'] ?? false === true) {
             $this->apiUrl = 'https://idu-test.datazoo.com/api/v2';
         }
         $this->config = $config;
-
         $this->client = $client ?? new Client();
     }
 
-    /**
-     * @return void
-     */
-    public function preAuth()
+    public function preAuth(): void
     {
         if ($this->sessionToken === null) {
             $this->auth();
@@ -71,12 +53,6 @@ class Datazoo
         }
     }
 
-    /**
-     *
-     * @param \CustomD\Datazoo\Model\ModelAbstract $service
-     *
-     * @return \CustomD\Datazoo\Response\AbstractResponse
-     */
     public function performRequest(ModelAbstract $service)
     {
         $this->preAuth();
@@ -87,19 +63,15 @@ class Datazoo
                     'Content-Type'  => 'application/json',
                     'Authorization' => $this->sessionToken,
                     'Accept'        => 'application/json'
-                   // 'UserName'      => $this->config['username']
                 ]
             ]);
 
             return $service->setResponse($response->getBody());
         } catch (\GuzzleHttp\Exception\ClientException $e) {
-            dd($e);
             throw new \Exception("Failed to call service");
         } catch (ValidationException $e) {
-            dd($e);
             throw $e;
         } catch (\Throwable $e) {
-            dd($e);
             throw new \Exception("Failed to call service");
         }
     }

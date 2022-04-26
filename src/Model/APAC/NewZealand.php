@@ -14,7 +14,7 @@ class NewZealand extends ModelAbstract
     /**
      * @var array <string, class-string>
      */
-    protected $serviceMap = [
+    protected array $serviceMap = [
         'DiaBirth' => DiaBirth::class
     ];
 
@@ -22,7 +22,7 @@ class NewZealand extends ModelAbstract
 
      * @var array<string, mixed>
      */
-    protected $fields = [
+    protected array $fields = [
         "countryCode"       =>  "NZ",
         "service"           =>  [],
         "clientReference"   =>  null,

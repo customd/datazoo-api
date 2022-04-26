@@ -4,26 +4,26 @@ namespace CustomD\Datazoo\Model\APAC\NewZealand;
 
 class DiaBirth
 {
-    public $service = 'New Zealand DIA Birth';
+    public string $service = 'New Zealand DIA Birth';
 
     /**
      * @var array<string, bool>
      */
-    public $concent = [
+    public array $concent = [
         "New Zealand DIA Birth" => true
     ];
 
     /**
      * @var array<string, mixed>
      */
-    public $rules = [
+    public array $rules = [
         'dateOfBirth' => ['required','date'],
     ];
 
     /**
      * @var array<string>
      */
-    public $fields = [
+    public array $fields = [
         'firstName',
         'middleName',
         'lastName',

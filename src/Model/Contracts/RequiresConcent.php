@@ -4,7 +4,7 @@ namespace CustomD\Datazoo\Model\Contracts;
 
 trait RequiresConcent
 {
-    public function addService(string $service): void
+    public function addService(string $service): static
     {
         $class = new $this->serviceMap[$service]();
         $this->services[$service] = $class;
@@ -14,5 +14,7 @@ trait RequiresConcent
             $this->fields['consentObtained'],
             $class->concent
         );
+
+        return $this;
     }
 }

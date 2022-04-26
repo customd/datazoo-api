@@ -15,6 +15,10 @@ abstract class ModelAbstract
      */
     protected $services = [];
 
+    /**
+     * @param array<string, mixed> $data
+     * @param array<string, string> $services
+     */
     public function __construct(array $data = [], array $services = [])
     {
         foreach ($services as $service) {
@@ -29,36 +33,24 @@ abstract class ModelAbstract
         }
     }
 
-    /**
-     * Undocumented function
-     *
-     * @param string $service
-     *
-     * @return void
-     */
-    public function addService(string $service): void
+    public function addService(string $service): static
     {
         $class = new $this->serviceMap[$service]();
         $this->services[$service] = $class;
         $this->fields['service'][] = $class->service;
+        return $this;
     }
 
-    /**
-     * Undocumented function
-     *
-     * @param string $service
-     *
-     * @return void
-     */
-    public function removeService(string $service): void
+
+    public function removeService(string $service): static
     {
-        $this->services[$service] = false;
+        if (isset($this->services[$service])) {
+            unset($this->services[$service]);
+        }
+        return $this;
     }
 
-        /**
-     * @return void
-     */
-    public function validateData()
+    public function validateData(): void
     {
         $required = [
             'countryCode'     => ['required','string'],
@@ -81,54 +73,31 @@ abstract class ModelAbstract
         $validator->validate();
     }
 
-     /**
-     * @param string $value
-     *
-     * @return static
-     */
-    public function setClientReferenceValue(string $value)
+    public function setClientReferenceValue(string $value): static
     {
         $this->fields['clientReference'] = $value;
         return $this;
     }
 
-        /**
-     * @param string $value
-     *
-     * @return static
-     */
-    public function setFirstNameValue(string $value)
+    public function setFirstNameValue(string $value): static
     {
         $this->fields['firstName'] = $value;
         return $this;
     }
-    /**
-     * @param string $value
-     *
-     * @return static
-     */
-    public function setMiddleNameValue(string $value)
+
+    public function setMiddleNameValue(string $value): static
     {
         $this->fields['middleName'] = $value;
         return $this;
     }
-    /**
-     * @param string $value
-     *
-     * @return static
-     */
-    public function setLastNameValue(string $value)
+
+    public function setLastNameValue(string $value): static
     {
         $this->fields['lastName'] = $value;
         return $this;
     }
 
-    /**
-     * @param string|\DateTime $value
-     *
-     * @return static
-     */
-    public function setDateOfBirthValue($dob)
+    public function setDateOfBirthValue(string|DateTime $dob): static
     {
         if (! $dob instanceof DateTime) {
             $dob = new DateTime($dob);
@@ -137,24 +106,13 @@ abstract class ModelAbstract
         return $this;
     }
 
-    /**
-     * Undocumented function
-     *
-     * @return array
-     */
-    public function toRequest()
+    public function toRequest(): array
     {
         $this->validateData();
         return $this->fields;
     }
 
-
-    /**
-     * @param string $body
-     *
-     * @return AbstractResponse
-     */
-    public function setResponse(string $body)
+    public function setResponse(string $body): AbstractResponse
     {
         return (new AbstractResponse($body, array_keys($this->services)));
     }
