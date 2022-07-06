@@ -23,7 +23,7 @@ class TestCase extends BaseTestCase
      */
     protected $api;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
         $file = __DIR__ . '/../config.test.php';
@@ -57,5 +57,10 @@ class TestCase extends BaseTestCase
         $client = new Client(['handler' => $handlerStack]);
 
         return new Datazoo($this->datazooConfig, $client);
+    }
+
+    protected function hasCredentials(): bool
+    {
+        return isset($this->datazooConfig['username']) && ! blank($this->datazooConfig['username']);
     }
 }
