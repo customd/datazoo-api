@@ -23,7 +23,7 @@ class TestCase extends BaseTestCase
      */
     protected $api;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
         $file = __DIR__ . '/../config.test.php';
@@ -36,13 +36,14 @@ class TestCase extends BaseTestCase
                 'password' =>  getenv("DATAZOO_PASSWORD")
             ];
         }
+
         $this->datazooConfig = $config;
 
         $this->api = new Datazoo($config);
     }
 
 
-    protected function fakeCallFor(string $call, array $headers = [], $code = 200): Datazoo
+    protected function fakeCallFor(string $call, array $headers = [], $code = 200)
     {
 
         $authResponse = file_get_contents(__DIR__ . '/Responses/auth.json');
@@ -57,5 +58,25 @@ class TestCase extends BaseTestCase
         $client = new Client(['handler' => $handlerStack]);
 
         return new Datazoo($this->datazooConfig, $client);
+    }
+
+    protected function fakeCallForAuth($code = 200)
+    {
+
+        $authResponse = file_get_contents(__DIR__ . '/Responses/auth.json');
+
+        $mock = new MockHandler([
+            new Response(200, [], $authResponse),
+        ]);
+
+        $handlerStack = HandlerStack::create($mock);
+        $client = new Client(['handler' => $handlerStack]);
+
+        return new Datazoo($this->datazooConfig, $client);
+    }
+
+    protected function hasCredentials()
+    {
+        return isset($this->datazooConfig['username']) && ! blank($this->datazooConfig['username']);
     }
 }

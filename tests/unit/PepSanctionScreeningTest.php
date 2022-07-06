@@ -13,18 +13,23 @@ class PepSanctionScreeningTest extends TestCase
     {
         $call = new PepSanctionScreening([
             'clientReference' => '123456798',
-            'firstName'       => 'Craig',
-            'middleName'      => 'Glenham',
+            'firstName'       => 'John',
+            'middleName'      => 'Graham',
             'lastName'        => 'Smith',
-            'dateOfBirth'     => '1978-07-12',
+            'dateOfBirth'     => '1977-07-12',
             'gender'          => 'Male',
         ], ['GlobalWatchlist']);
 
-        //$res = $this->api->performRequest($call)->getGlobalWatchlistResponse();
-        $res = $this->fakeCallFor('PepSanctionScreening')->performRequest($call)->getGlobalWatchlistResponse();
+        if ($this->hasCredentials()) {
+            $res = $this->api->performRequest($call)->getGlobalWatchlistResponse();
 
-        $json = json_encode($res);
+            $this->assertEquals("Successful", $res->sourceStatus);
+        } else {
+            $res = $this->fakeCallFor('PepSanctionScreening')->performRequest($call)->getGlobalWatchlistResponse();
 
-        $this->assertJsonStringEqualsJsonString(file_get_contents(__DIR__ . '/../Responses/PepSanctionScreeningParsed.json'), $json);
+            $json = json_encode($res);
+
+            $this->assertJsonStringEqualsJsonString(file_get_contents(__DIR__ . '/../Responses/PepSanctionScreeningParsed.json'), $json);
+        }
     }
 }

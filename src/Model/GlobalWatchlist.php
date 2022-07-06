@@ -6,16 +6,28 @@ use CustomD\Datazoo\Response\GlobalWatchlistResponse;
 
 class GlobalWatchlist
 {
-    public string $service = 'Watchlist AML';
+    /**
+     * @var string $service
+     */
+    public $service = 'Watchlist AML';
 
-    public array $concent = [];
+    /**
+     * @var array $concent
+     */
+    public $concent = [];
 
-    public array $rules = [
+    /**
+     * @var array $rules
+     */
+    public $rules = [
         'dateOfBirth' => ['required','date'],
         'gender'      => ['required'],
     ];
 
-    public array $fields = [
+    /**
+     * @var array $fields
+     */
+    public $fields = [
         'firstName',
         'middleName',
         'lastName',
@@ -26,5 +38,5 @@ class GlobalWatchlist
     /**
      * @param class-string $responseObject
      */
-    public string $responseObject = '\CustomD\Datazoo\Response\GlobalWatchlistResponse';
+    public $responseObject = '\CustomD\Datazoo\Response\GlobalWatchlistResponse';
 }

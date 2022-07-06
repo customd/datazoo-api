@@ -33,7 +33,10 @@ abstract class ModelAbstract
         }
     }
 
-    public function addService(string $service): static
+    /**
+     * @return static
+     */
+    public function addService(string $service)
     {
         $class = new $this->serviceMap[$service]();
         $this->services[$service] = $class;
@@ -42,7 +45,10 @@ abstract class ModelAbstract
     }
 
 
-    public function removeService(string $service): static
+    /**
+     * @return static
+     */
+    public function removeService(string $service)
     {
         if (isset($this->services[$service])) {
             unset($this->services[$service]);
@@ -50,7 +56,10 @@ abstract class ModelAbstract
         return $this;
     }
 
-    public function validateData(): void
+    /**
+     * @return void
+     */
+    public function validateData()
     {
         $required = [
             'countryCode'     => ['required','string'],
@@ -73,31 +82,48 @@ abstract class ModelAbstract
         $validator->validate();
     }
 
-    public function setClientReferenceValue(string $value): static
+    /**
+     * @return static
+     */
+    public function setClientReferenceValue(string $value)
     {
         $this->fields['clientReference'] = $value;
         return $this;
     }
 
-    public function setFirstNameValue(string $value): static
+    /**
+     * @return static
+     */
+    public function setFirstNameValue(string $value)
     {
         $this->fields['firstName'] = $value;
         return $this;
     }
 
-    public function setMiddleNameValue(string $value): static
+    /**
+     * @return static
+     */
+    public function setMiddleNameValue(string $value)
     {
         $this->fields['middleName'] = $value;
         return $this;
     }
 
-    public function setLastNameValue(string $value): static
+    /**
+     * @return static
+     */
+    public function setLastNameValue(string $value)
     {
         $this->fields['lastName'] = $value;
         return $this;
     }
 
-    public function setDateOfBirthValue(string|DateTime $dob): static
+    /**
+     * @param string|DateTime $dob
+     *
+     * @return static
+     */
+    public function setDateOfBirthValue($dob)
     {
         if (! $dob instanceof DateTime) {
             $dob = new DateTime($dob);
@@ -106,13 +132,19 @@ abstract class ModelAbstract
         return $this;
     }
 
-    public function toRequest(): array
+    /**
+     * @return array
+     */
+    public function toRequest()
     {
         $this->validateData();
         return $this->fields;
     }
 
-    public function setResponse(string $body): AbstractResponse
+    /**
+     * @return AbstractResponse
+     */
+    public function setResponse(string $body)
     {
         return (new AbstractResponse($body, array_keys($this->services)));
     }

@@ -14,15 +14,15 @@
     }
   },
   "require": {
-    "php": "^8.0",
-    "illuminate/support": "^8.0|^9.0",
-    "illuminate/validation": "^8.0|^9.0",
-    "illuminate/translation": "^8.0|^9.0"
+    "php": "^7.1|^8.0",
+    "illuminate/support": ">=5.8",
+    "illuminate/validation": ">=5.8",
+    "illuminate/translation": ">=5.8"
   },
   "require-dev": {
-    "phpunit/phpunit": "^9.0",
-    "nunomaduro/larastan": "^1.0|^2.0",
-    "guzzlehttp/guzzle": "^7.0"
+    "phpunit/phpunit": ">=7",
+    "nunomaduro/larastan": "*",
+    "guzzlehttp/guzzle": "^6.0|^7.0"
   },
   "scripts": {
     "test": "phpunit",

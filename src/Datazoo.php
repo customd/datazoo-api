@@ -5,20 +5,30 @@ namespace CustomD\Datazoo;
 use GuzzleHttp\Client;
 use GuzzleHttp\ClientInterface;
 use CustomD\Datazoo\Model\ModelAbstract;
+use GuzzleHttp\Exception\ClientException;
 use Illuminate\Validation\ValidationException;
 
 class Datazoo
 {
-    protected string $apiUrl = 'https://idu.datazoo.com/api/v2';
+    /**
+     * @var string
+     */
+    protected $apiUrl = 'https://idu.datazoo.com/api/v2';
 
-    protected array $config;
+    /**
+     * @var array
+     */
+    protected $config;
 
-    protected ?string $sessionToken = null;
+    /**
+     * @var string|null
+     */
+    protected $sessionToken = null;
 
     /**
      * @var \GuzzleHttp\ClientInterface&\GuzzleHttp\ClientTrait
      */
-    protected ClientInterface $client;
+    protected $client;
 
     public function __construct(array $config, ?ClientInterface $client = null)
     {
@@ -45,10 +55,18 @@ class Datazoo
                     "password" => $this->config['password']
                 ]
             ]);
+
             $response = json_decode($res->getBody(), true);
+
             $this->sessionToken = $response['sessionToken'] ?? null;
+
             return $this->sessionToken !== null;
+        } catch (ClientException $e) {
+            throw new ValidationException([
+                'message' => $e->getMessage()
+            ]);
         } catch (\Throwable $e) {
+            dd($e);
             return false;
         }
     }
