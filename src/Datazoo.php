@@ -32,7 +32,7 @@ class Datazoo
 
     public function __construct(array $config, ?ClientInterface $client = null)
     {
-        if ($config['debug'] ?? false === true) {
+        if (isset($config['debug']) &&  $config['debug'] === true) {
             $this->apiUrl = 'https://idu-test.datazoo.com/api/v2';
         }
         $this->config = $config;

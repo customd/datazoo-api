@@ -21,7 +21,7 @@ class GlobalWatchlist
      */
     public $rules = [
         'dateOfBirth' => ['required','date'],
-        'gender'      => ['required'],
+    //    'gender'      => ['required'],
     ];
 
     /**
