@@ -12,7 +12,7 @@ class GlobalWatchlist
 
     public array $rules = [
         'dateOfBirth' => ['required','date'],
-        'gender'      => ['required'],
+     //   'gender'      => ['required'],
     ];
 
     public array $fields = [

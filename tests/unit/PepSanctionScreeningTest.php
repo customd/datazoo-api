@@ -20,6 +20,7 @@ class PepSanctionScreeningTest extends TestCase
             'gender'          => 'Male',
         ], ['GlobalWatchlist']);
 
+
         if ($this->hasCredentials()) {
             $res = $this->api->performRequest($call)->getGlobalWatchlistResponse();
 

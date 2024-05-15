@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace Tests\Datazoo;
 
-use CustomD\Datazoo\Model\APAC\NewZealand;
-use Illuminate\Validation\ValidationException;
 use Tests\Datazoo\TestCase;
 
 class DatazooTest extends TestCase

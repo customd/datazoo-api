@@ -33,7 +33,7 @@ abstract class ResponseObject implements JsonSerializable
         }, (array) $this);
     }
 
-    public function jsonSerialize()
+    public function jsonSerialize(): mixed
     {
         return $this->toArray();
     }

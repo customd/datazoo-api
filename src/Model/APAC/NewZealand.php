@@ -4,7 +4,7 @@ namespace CustomD\Datazoo\Model\APAC;
 
 use DateTime;
 use CustomD\Datazoo\Model\ModelAbstract;
-use CustomD\Datazoo\Model\NewZealand\DiaBirth;
+use CustomD\Datazoo\Model\APAC\NewZealand\DiaBirth;
 use CustomD\Datazoo\Model\Contracts\RequiresConcent;
 
 class NewZealand extends ModelAbstract
@@ -14,7 +14,7 @@ class NewZealand extends ModelAbstract
     /**
      * @var array <string, class-string>
      */
-    protected array $serviceMap = [
+    protected $serviceMap = [
         'DiaBirth' => DiaBirth::class
     ];
 
@@ -22,7 +22,7 @@ class NewZealand extends ModelAbstract
 
      * @var array<string, mixed>
      */
-    protected array $fields = [
+    protected $fields = [
         "countryCode"       =>  "NZ",
         "service"           =>  [],
         "clientReference"   =>  null,

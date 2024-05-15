@@ -14,6 +14,15 @@ abstract class ModelAbstract
      * @var array<string, object>
      */
     protected $services = [];
+    /**
+     * @var array<string, mixed>
+     */
+    protected $fields = [];
+
+    /**
+     * @var array <string, class-string>
+     */
+    protected $serviceMap = [];
 
     /**
      * @param array<string, mixed> $data

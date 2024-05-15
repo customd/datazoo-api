@@ -32,10 +32,11 @@ class TestCase extends BaseTestCase
             require $file;
         } else {
             $config = [
-                'username' => getenv("DATAZOO_USERNAME"),
-                'password' =>  getenv("DATAZOO_PASSWORD")
+                'username' => getenv("DATAZOO_USERNAME") ?: null,
+                'password' =>  getenv("DATAZOO_PASSWORD") ?: null,
             ];
         }
+
         $this->datazooConfig = $config;
 
         $this->api = new Datazoo($config);
@@ -59,8 +60,25 @@ class TestCase extends BaseTestCase
         return new Datazoo($this->datazooConfig, $client);
     }
 
+    protected function fakeCallForAuth($code = 200): Datazoo
+    {
+
+        $authResponse = file_get_contents(__DIR__ . '/Responses/auth.json');
+
+        $mock = new MockHandler([
+            new Response(200, [], $authResponse),
+        ]);
+
+        $handlerStack = HandlerStack::create($mock);
+        $client = new Client(['handler' => $handlerStack]);
+
+        return new Datazoo($this->datazooConfig, $client);
+    }
+
     protected function hasCredentials(): bool
     {
-        return isset($this->datazooConfig['username']) && ! blank($this->datazooConfig['username']);
+        return isset($this->datazooConfig['username']) && filled($this->datazooConfig['username']);
     }
+
+
 }
