@@ -24,7 +24,7 @@ class GlobalWatchlist extends ResponseObject
     public function setReturnedDataAttribute($value)
     {
         $this->returnedData = [
-            'watchListResults' => (new WatchlistResultsCollection($value['watchlistResults']))->mapInto(WatchlistResult::class)
+            'watchListResults' => (new WatchlistResultsCollection($value['watchlistResults'] ?? []))->mapInto(WatchlistResult::class)
         ];
     }
 }
